@@ -1,128 +1,51 @@
 package com.company;
 
 
-class PushCreator implements Creator {
-    @Override
-    public Command create() {
-        return new Push();
-    }
 
-}
-
-class PopCreator implements Creator {
-
-
-    @Override
-    public Command create() {
-        return new Pop();
-    }
-}
-
-class SumCreator implements Creator {
-
-
-    @Override
-    public Command create() {
-        return new Sum();
-    }
-}
-
-class SubtractionCreator implements Creator {
-
-
-    @Override
-    public Command create() {
-        return new Subtraction();
-    }
-}
-
-class MultiplicationCreator implements Creator {
-
-
-    @Override
-    public Command create() {
-        return new Multiplication();
-    }
-}
-
-class CommentCreator implements Creator {
-
-    @Override
-    public Command create() {
-        return new Comment();
-    }
-}
-
-class DivideCreator implements Creator {
-
-    @Override
-    public Command create() {
-        return new Divide();
-    }
-}
-
-class PrintCreator implements Creator {
-
-
-    @Override
-    public Command create() {
-        return new Print();
-    }
-}
-
-class SqrtCreator implements Creator {
-
-
-    @Override
-    public Command create() {
-        return new Sqrt();
-    }
-}
-
-class DefineCreator implements Creator {
-
-    @Override
-    public Command create() {
-        return new Define();
-    }
-}
+import java.io.*;
 
 public class Main {
-    Creator creator = new SqrtCreator();
-    Command command= creator.create();
-    static Creator createCommandCreator (String commands){
-        return map(commands);
-    }
-}
 
-//    com.company.Command initialize() throws Exception {
-//        config = readConfigFile();
-//        if (config.command == "+") {
-//            creator = new SqrtCreator();
-//        } else if (config.command == "-") {
-//            creator = new SubtractionCreator();
-//        } else if (config.command == "/") {
-//            creator = new DivideCreator();
-//        } else if (config.command == "*") {
-//            creator = new MultiplicationCreator();
-//        } else if (config.command == "DEFINE") {
-//            creator = new DefineCreator();
-//        } else if (config.command == "SQRT") {
-//            creator = new SqrtCreator();
-//        } else if (config.command == "#") {
-//            creator = new CommentCreator();
-//        } else if (config.comment == "PRINT") {
-//            creator = new PrintCreator();
-//        } else if (config.comment == "POP") {
-//            creator = new PopCreator();
-//        } else if (config.comment == "PUSH") {
-//            creator = new PushCreator();
-//        } else {
-//            throw new Exception("Error! Unknown command!");
-//        }
-//
-//
-//        public static void main (String[]args){
-//            // write your code here
-//        }
-//    }
+    public static void main(String[] args) throws IOException {
+
+
+        File input = null;
+        File operations = null;
+//        input=new File(args[1]);
+//        operations=new File(args[0]);
+        for (int i = 0; i < args.length; i++) {
+
+            // Установка файла для чтения.
+            if (args[i].equals("-i")) {
+                if (args.length == i + 1) {
+
+                    return;
+                }
+                operations = new File(args[++i]);
+                if (!checkFile(operations))
+                    return;
+                continue;
+            }
+
+            input = new File(args[i]);
+        }
+
+
+        Reader reader;
+        if (input == null) {
+            reader = new InputStreamReader(System.in);
+
+        } else
+            reader = new FileReader(input);
+
+        new Calculator(operations, reader).execute();
+    }
+
+    private static boolean checkFile(File file) {
+        if (!file.exists()) {
+
+            return false;
+        } else return !file.isDirectory();
+    }
+
+}

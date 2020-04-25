@@ -1,7 +1,5 @@
 package com.company;
 
-interface  Command {
-    void do_operation();
-
-
+public interface Command {
+    void do_operation(CalcEnviroment environment, String[] args);
 }

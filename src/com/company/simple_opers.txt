@@ -1,0 +1,15 @@
+Define name 5
+Push name
+Sqrt
+Print
+Pop
+Push name
+Push name
+*
+Print
+Push 14
++
+Print
+Push 5
+/
+Print
